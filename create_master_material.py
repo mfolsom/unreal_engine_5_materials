@@ -48,8 +48,9 @@ emissive_param.set_editor_property("default_value", 1.0)
 
 #create a material instance
 material_instance = asset_tools.create_asset("MI_GenericMaterial", materials_dir, unreal.MaterialInstanceConstant, unreal.MaterialInstanceConstantFactoryNew())
-
-#set the parent material
 material_instance.set_editor_property("parent", master_material)
 
+#save the assets
+editor_asset_library.save_asset("/Game/Content/Materials/M_GenericMaterial", True)
+editor_asset_library.save_asset("/Game/Content/Materials/MI_GenericMaterial", True)
 
