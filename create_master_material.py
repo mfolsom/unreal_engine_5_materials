@@ -7,7 +7,7 @@ asset_tools = unreal.AssetToolsHelpers.get_asset_tools()
 material_edit_library = unreal.MaterialEditingLibrary
 editor_asset_library = unreal.EditorAssetLibrary
 
-#check that there is a Materials directory
+#define the materials directory
 materials_dir = content_dir + "Materials"
 esc_path = repr(materials_dir).replace(" ", "")
 print(materials_dir)
@@ -19,4 +19,21 @@ if not editor_asset_library.does_directory_exist(materials_dir):
 # create a master material
 master_material = asset_tools.create_asset("M_GenericMaterial", materials_dir, unreal.Material, unreal.MaterialFactoryNew())
 
+#create the base color parameter and connect it to the base color property
+base_color_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionTextureSampleParameter,-384, -200)
+material_edit_library.connect_material_property(base_color_param, "RGB", unreal.MaterialProperty.MP_BASE_COLOR)
 
+#create the normal parameter and connect it to the normal property
+normal_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionTextureSampleParameter, -384, 50)
+material_edit_library.connect_material_property(normal_param, "RGB", unreal.MaterialProperty.MP_NORMAL)
+
+#create the ORM parameter and connect it to the ORM properties
+orm_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionTextureSampleParameter, -384, 300)
+material_edit_library.connect_material_property(orm_param, "R", unreal.MaterialProperty.MP_AMBIENT_OCCLUSION)
+material_edit_library.connect_material_property(orm_param, "G", unreal.MaterialProperty.MP_ROUGHNESS)
+material_edit_library.connect_material_property(orm_param, "B", unreal.MaterialProperty.MP_METALLIC)
+
+#set the parameter names
+base_color_param.set_editor_property("parameter_name", "Base Color")
+normal_param.set_editor_property("parameter_name", "Normal")
+orm_param.set_editor_property("parameter_name", "ORM")
