@@ -23,6 +23,10 @@ master_material = asset_tools.create_asset("M_GenericMaterial", materials_dir, u
 base_color_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionTextureSampleParameter,-384, -200)
 material_edit_library.connect_material_property(base_color_param, "RGB", unreal.MaterialProperty.MP_BASE_COLOR)
 
+#create a scalar parameter for emissive and connect it to the emissive property
+emissive_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionScalarParameter, -584, 200)
+material_edit_library.connect_material_property(emissive_param, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+
 #create the normal parameter and connect it to the normal property
 normal_param = material_edit_library.create_material_expression(master_material, unreal.MaterialExpressionTextureSampleParameter, -384, 50)
 material_edit_library.connect_material_property(normal_param, "RGB", unreal.MaterialProperty.MP_NORMAL)
@@ -37,3 +41,9 @@ material_edit_library.connect_material_property(orm_param, "B", unreal.MaterialP
 base_color_param.set_editor_property("parameter_name", "Base Color")
 normal_param.set_editor_property("parameter_name", "Normal")
 orm_param.set_editor_property("parameter_name", "ORM")
+emissive_param.set_editor_property("parameter_name", "Emissive Intensity")
+
+#set the parameter values
+emissive_param.set_editor_property("default_value", 1.0)
+
+
