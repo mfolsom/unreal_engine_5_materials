@@ -46,4 +46,7 @@ emissive_param.set_editor_property("parameter_name", "Emissive Intensity")
 #set the parameter values
 emissive_param.set_editor_property("default_value", 1.0)
 
+#create a material instance
+material_instance = asset_tools.create_asset("MI_GenericMaterial", materials_dir, unreal.MaterialInstanceConstant, unreal.MaterialInstanceConstantFactoryNew())
+
 
